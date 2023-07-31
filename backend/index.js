@@ -16,6 +16,7 @@ const Product = require("./db/Product")
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/",(req,res)=>{
     res.send("app is running at port 5000");
@@ -49,14 +50,19 @@ app.post("/add-product",async(req,res)=>{
     res.send(result);
 })
 
+// product list api
 app.get("/products/:id",async (req,res)=>{
-    // console.log(req.params.id);
-    // res.send({result:"value recived"});
     let products= await Product.find({userId:req.params.id});
     if(products.length>0)
     res.send(products);
     else
     res.send({result:"no product found"})
+})
+
+// delte product api
+app.delete("/product/:id",async(req,res)=>{
+    const result = await Product.deleteOne({_id:req.params.id});
+    res.send(result);
 })
 
 app.listen(5000);
