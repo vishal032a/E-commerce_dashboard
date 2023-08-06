@@ -4,6 +4,7 @@ const Login = ()=>{
     const [email,setemail] = useState("");
     const [password,setpassword] = useState("");
     const navigate = useNavigate();
+
     const handle_login = async ()=>{
         let result = await fetch('http://localhost:5000/login',{
             method:'post',
@@ -14,11 +15,12 @@ const Login = ()=>{
         })
         result = await result.json();
         console.log(result);
-        if(result.name){
-            localStorage.setItem("user",JSON.stringify(result));
+        if(result.auth){
+            localStorage.setItem("user",JSON.stringify(result.user));
+            localStorage.setItem("token",JSON.stringify(result.auth));
             navigate('/');
         }else{
-            alert("please enter correct name")
+            alert("please enter correct email or password")
         }
     }
     return(
