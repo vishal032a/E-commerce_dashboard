@@ -18,7 +18,8 @@ const Signup = ()=>{
             method:'post',
             body:JSON.stringify({name,email,password}),
             headers:{
-                'Content-Type':'Application/JSON'
+                'Content-Type':'Application/JSON',
+                authorization:JSON.parse(localStorage.getItem('token'))
             },
         })
         result = await result.json();

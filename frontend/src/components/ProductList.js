@@ -11,14 +11,21 @@ const ProductList = ()=>{
 
     const userid = JSON.parse(localStorage.getItem('user'))._id;
     const getProducts = async ()=>{
-        let result = await fetch(`http://localhost:5000/products/${userid}`)
+        let result = await fetch(`http://localhost:5000/products/${userid}`,{
+            headers:{
+                authorization:JSON.parse(localStorage.getItem('token'))
+            }
+        })
         result = await result.json();
         setProductList(result);
     }
     
     const deleteproduct = async (id)=>{
         let result = await fetch(`http://localhost:5000/product/${id}`,{
-            method:"Delete"
+            method:"Delete",
+            headers:{
+                authorization:JSON.parse(localStorage.getItem('token'))
+            }
         });
         result = await result.json();
         if(result){
@@ -27,7 +34,7 @@ const ProductList = ()=>{
         // setRefresh(prev => !prev);
     }
  
-        const filtered = ProductList.length?(productList?.filter((item) => item.name.toLowerCase().includes(word.toLowerCase()))):([]);
+        const filtered = productList.length?(productList?.filter((item) => item.name.toLowerCase().includes(word.toLowerCase()))):([]);
 
     useEffect(()=>{
         getProducts();

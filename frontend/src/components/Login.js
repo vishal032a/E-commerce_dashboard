@@ -10,7 +10,8 @@ const Login = ()=>{
             method:'post',
             body:JSON.stringify({email,password}),
             headers:{
-                'Content-Type':'Application/JSON'
+                'Content-Type':'Application/JSON',
+                authorization:JSON.parse(localStorage.getItem('token'))
             }
         })
         result = await result.json();
