@@ -30,7 +30,7 @@ app.use(cors());
 
 
 //signup api 
-app.post("/register",verifyToken,async (req,res)=>{
+app.post("/register",async (req,res)=>{
     let user = new User(req.body);
     let result = await user.save();
         Jwt.sign({result},jwtKey,(err,token)=>{
@@ -42,7 +42,7 @@ app.post("/register",verifyToken,async (req,res)=>{
 })
 
 //login api
-app.post('/login',verifyToken,async(req,res)=>{
+app.post('/login',async(req,res)=>{
 
     if(req.body.password && req.body.email){
         let user = await User.findOne(req.body).select("-password");
