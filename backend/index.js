@@ -11,9 +11,10 @@ dotenv.config();
 
 
 const jwtKey = process.env.jwtKey;
-const USERNAME = process.env.DB_USERNAME;
-const PASSWORD = process.env.DB_PASSWORD;
-mongoose.connect(`mongodb+srv://${USERNAME}:${PASSWORD}@cluster0.fomyegu.mongodb.net/E-comm?retryWrites=true&w=majority`);
+// const USERNAME = process.env.DB_USERNAME;
+// const PASSWORD = process.env.DB_PASSWORD;
+
+mongoose.connect(process.env.mongoURI);
 
 
 
