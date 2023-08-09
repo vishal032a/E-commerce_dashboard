@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams,useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useProducts } from "./productContext";
 // import { useNavigate } from 'react-router-dom';
 
 const UpdateProduct = () => {
-  const { productList} = useProducts();
+  const { productList } = useProducts();
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -13,7 +13,6 @@ const UpdateProduct = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const result = productList?.filter((item) => item._id === id)[0];
@@ -24,18 +23,20 @@ const UpdateProduct = () => {
   }, []);
 
   const updateproduct = async () => {
-     let result = await fetch(`http://localhost:5000/product/${id}`,{
-      method:'PUT',
-      body:JSON.stringify({name,price,category,company}),
-      headers:{
-        'Content-Type':"application/json",
-        authorization:JSON.parse(localStorage.getItem('token'))
+    let result = await fetch(
+      `https://e-comm-dashboard-kqev.onrender.com/product/${id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ name, price, category, company }),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: JSON.parse(localStorage.getItem("token")),
+        },
       }
-     });
-     result = await result.json();
-     
-     if(result)
-     navigate('/');
+    );
+    result = await result.json();
+
+    if (result) navigate("/");
   };
 
   return (
